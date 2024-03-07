@@ -3,23 +3,29 @@ import { fetchToken, setToken } from "../context/Auth";
 import { useState } from "react";
 import axios from "axios";
 
+const LOGIN_URL = '/login';
+
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   //check to see if the fields are not empty
+  console.log(JSON.stringify({ "username": username, "password": password }))
   const login = () => {
     if ((username === "") & (password === "")) {
       console.log("no username nor password was entered!")
       return;
     } else {
-      // make api call to our backend. we'll leave thisfor later
+      // make api call to our backend. we'll leave this for later
       axios
-        .post("http://localhost:8000/login", {
-          username: username,
-          password: password,
-        })
+        .post(LOGIN_URL, 
+          JSON.stringify({ "username": username, "password": password }),
+          {
+            headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
+          }
+        )
         .then(function (response) {
           console.log(response.data.token, "response.data.token");
           if (response.data.token) {

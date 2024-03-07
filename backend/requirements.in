@@ -1,3 +1,4 @@
 # requirements.in
 fastapi
 uvicorn[standard]
+PyJWT
