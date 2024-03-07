@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from "../context/AuthProvider";
+//import AuthContext from "../context/AuthProvider";
+import useAuth from "../hooks/useAuth";
 import { fetchToken, setToken } from '../context/Auth';
 
 import axios from '../api/axios';
@@ -7,7 +8,8 @@ import axios from '../api/axios';
 const LOGIN_URL = 'http://localhost:8000/login'
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    //const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
 

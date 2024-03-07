@@ -63,10 +63,11 @@ class RegisterItem(BaseModel):
 
 @app.post("/login")
 async def user_login(loginitem:LoginItem):
-    import pdb;pdb.set_trace()
-
 
     data = jsonable_encoder(loginitem)
+
+    print(f'received username={data["username"]}')
+    print(f'received password={data["password"]}')
 
     if data['username']== test_user['username'] and data['password']== test_user['password']:
 
@@ -85,8 +86,6 @@ async def user_login(loginitem:LoginItem):
 
 @app.post("/register")
 async def user_registration(registeritem:RegisterItem):
-    import pdb;pdb.set_trace()
-
 
     data = jsonable_encoder(registeritem)
 
