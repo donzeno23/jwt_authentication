@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-//import AuthContext from "../context/AuthProvider";
-import useAuth from "../hooks/useAuth";
+// import AuthContext from "../context/AuthProvider";
+import AuthContext from '../context/auth-context';
+// import useAuth from "../hooks/useAuth";
 import { fetchToken, setToken } from '../context/Auth';
 
 import axios from '../api/axios';
@@ -8,8 +9,12 @@ import axios from '../api/axios';
 const LOGIN_URL = 'http://localhost:8000/login'
 
 const Login = () => {
-    //const { setAuth } = useContext(AuthContext);
-    const { setAuth } = useAuth();
+
+    const setAuth = useContext(AuthContext);
+    // const { auth, setAuth } = useContext(AuthContext);
+    // const [state, setState] = useState({ name: 'John', age: 30 });
+    // console.log("LoginButton.auth="+auth);
+    //const { auth, setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -37,15 +42,18 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
+            console.log("response="+JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-            console.log("user="+user);
-            console.log("pwd="+pwd);
-            console.log("roles="+roles);
-            console.log("accessToken="+accessToken);
-            setAuth({ user, pwd, roles, accessToken });
+            console.log("LoginButton.user="+user);
+            console.log("LoginButton.pwd="+pwd);
+            console.log("LoginButton.roles="+roles);
+            console.log("LoginButton.accessToken="+accessToken);
+            console.log(setAuth.state);
+            console.log("LoginButton.sethAuth="+JSON.stringify(setAuth));
+            // setAuth({ user, pwd, roles, accessToken });
+            // setAuth({ ...auth, name: 'Jane' });
             setUser('');
             setPwd('');
             setSuccess(true);
@@ -71,7 +79,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="/">Go to Home</a>
+                        <a href="/admin">Go to Admin Page!</a>
                     </p>
                 </section>
             ) : (
@@ -94,6 +102,7 @@ const Login = () => {
                         <input
                             type="password"
                             id="password"
+                            autoComplete="on"
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
                             required

@@ -15,6 +15,9 @@ export function RequireToken({children}){
     let auth = fetchToken()
     let location = useLocation()
 
+    console.log("context.Auth.auth="+auth);
+    console.log("context.Auth.location"+JSON.stringify(location));
+
     if(!auth){
 
         return <Navigate to='/' state ={{from : location}}/>;
